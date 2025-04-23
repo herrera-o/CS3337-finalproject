@@ -1,0 +1,16 @@
+.venv/
+.idea
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django migrations cache
+*.pyc
+*.pyo
+*.pyd
+
+# Python cache
+__pycache__/
+*.py[cod]
