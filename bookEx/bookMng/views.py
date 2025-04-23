@@ -1,10 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
 from .models import MainMenu
-from .forms import BookForm, BookSearchForm
+from .forms import BookForm, BookSearchForm, CommentForm
 
 from .models import Book
 
@@ -66,11 +66,25 @@ def book_detail(request, book_id):
     book = Book.objects.get(id=book_id)
 
     book.pic_path = book.picture.url[14:]
+
+    # Comments
+    comments = book.comments.all().order_by('-created_at')
+    form = CommentForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.book = book
+        comment.save()
+        return redirect('book_detail', book_id=book_id)
+
     return render(request,
                   'bookMng/book_detail.html',
                   {
                       'item_list': MainMenu.objects.all(),
-                      'book': book
+                      'book': book,
+                      'comments': comments,
+                      'form': form,
                   })
 
 def book_delete(request, book_id):
