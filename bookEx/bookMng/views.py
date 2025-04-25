@@ -84,7 +84,7 @@ def book_detail(request, book_id):
                   'bookMng/book_detail.html',
                   {
                       'item_list': MainMenu.objects.all(),
-                      'book': book
+                      'book': book,
                       'total_ratings': total_ratings,
                       'positive_ratings': positive_ratings,
                       'percentage': percentage
