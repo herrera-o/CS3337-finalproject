@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import Book
 from .models import Rating
+from .models import Comment
 
 
 class BookForm(ModelForm):
@@ -23,3 +24,10 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ['is_positive']
+
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
